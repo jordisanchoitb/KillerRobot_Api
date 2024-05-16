@@ -49,14 +49,32 @@ namespace KillerRobot_Api.Migrations
 
                     b.Property<string>("PlayerName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("Score")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("PlayerName");
+
                     b.ToTable("Scores");
+                });
+
+            modelBuilder.Entity("KillerRobot_Api.Models.Scores", b =>
+                {
+                    b.HasOne("KillerRobot_Api.Models.Player", "Player")
+                        .WithMany("Scores")
+                        .HasForeignKey("PlayerName")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Player");
+                });
+
+            modelBuilder.Entity("KillerRobot_Api.Models.Player", b =>
+                {
+                    b.Navigation("Scores");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace KillerRobot_Api.Models
 {
@@ -6,5 +7,7 @@ namespace KillerRobot_Api.Models
     {
         [Key]
         public string name { get; set; }
+        [InverseProperty("Player")]
+        public IEnumerable<Scores> Scores { get; set; }
     }
 }

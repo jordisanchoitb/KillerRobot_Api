@@ -9,6 +9,8 @@ namespace KillerRobot_Api.Models
         public int Id { get; set; }
         [Required]
         public string PlayerName { get; set; }
+        [ForeignKey(nameof(PlayerName))]
+        public Player Player { get; set; }
         [Required]
         public int Score { get; set; }
         public float? CompletionTime { get; set; }
