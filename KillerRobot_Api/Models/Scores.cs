@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace KillerRobot_Api.Models
 {
@@ -7,7 +8,7 @@ namespace KillerRobot_Api.Models
         [Key]
         public int Id { get; set; }
         [Required]
-        public Player Player { get; set; }
+        public string PlayerName { get; set; }
         [Required]
         public int Score { get; set; }
         public float? CompletionTime { get; set; }

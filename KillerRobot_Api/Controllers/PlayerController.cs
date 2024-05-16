@@ -1,30 +1,28 @@
 ﻿using KillerRobot_Api.Data;
-using KillerRobot_Api.Models;
 using KillerRobot_Api.Models.DTO;
+using KillerRobot_Api.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KillerRobot_Api.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class ScoresController : Controller
+    public class PlayerController : Controller
     {
         private readonly AppDbContext _context;
-        private ResponseDTO _response; 
+        private ResponseDTO _response;
 
-        public ScoresController(AppDbContext context)
+        public PlayerController(AppDbContext context)
         {
             _context = context;
             _response = new ResponseDTO();
         }
 
-        [HttpGet("GetScores")]
-        public ResponseDTO GetScores()
+        [HttpGet("GetPlayer")]
+        public ResponseDTO GetPlayer()
         {
             try
             {
-                IEnumerable<Scores> scores = _context.Scores.ToList();
-                _response.Data = scores;
+                IEnumerable<Player> player = _context.Players.ToList();
+                _response.Data = player;
             }
             catch (Exception ex)
             {
@@ -33,13 +31,13 @@ namespace KillerRobot_Api.Controllers
             }
             return _response;
         }
-        [HttpGet("GetScores/{id}")]
-        public ResponseDTO GetScores(int id)
+        [HttpGet("GetPlayer/{name}")]
+        public ResponseDTO GetPlayer(string name)
         {
             try
             {
-                Scores scores = _context.Scores.FirstOrDefault(x => x.Id == id);
-                _response.Data = scores;
+                Player player = _context.Players.FirstOrDefault(x => x.name == name);
+                _response.Data = player;
             }
             catch (Exception ex)
             {
@@ -48,12 +46,12 @@ namespace KillerRobot_Api.Controllers
             }
             return _response;
         }
-        [HttpPost("PostScores")]
-        public ResponseDTO GetScores([FromBody] Scores scores)
+        [HttpPost("PostPlayer")]
+        public ResponseDTO PostPlayer([FromBody] Player players)
         {
             try
             {
-                _context.Scores.Add(scores);
+                _context.Players.Add(players);
                 _context.SaveChanges();
             }
             catch (Exception ex)
@@ -63,12 +61,12 @@ namespace KillerRobot_Api.Controllers
             }
             return _response;
         }
-        [HttpPut("PutScores")]
-        public ResponseDTO PutStudent([FromBody] Scores scores)
+        [HttpPut("PutPlayer")]
+        public ResponseDTO PutStudent([FromBody] Player player)
         {
             try
             {
-                _context.Scores.Update(scores);
+                _context.Players.Update(player);
                 _context.SaveChanges();
             }
             catch (Exception ex)
@@ -78,13 +76,13 @@ namespace KillerRobot_Api.Controllers
             }
             return _response;
         }
-        [HttpDelete("DeleteStudent/{id}")]
-        public ResponseDTO DeleteStudent(int id)
+        [HttpDelete("DeletePlayer/{name}")]
+        public ResponseDTO DeletePlayer(string name)
         {
             try
             {
-                Scores scores = _context.Scores.FirstOrDefault(x => x.Id == id); // Obtenim l'element amb l'Id indicat
-                _context.Scores.Remove(scores);
+                Player player = _context.Players.FirstOrDefault(x => x.name == name); // Obtenim l'element amb l'Id indicat
+                _context.Players.Remove(player);
                 _context.SaveChanges();
             }
             catch (Exception ex)

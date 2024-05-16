@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KillerRobot_Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240516060732_InitDB")]
+    [Migration("20240516090713_InitDB")]
     partial class InitDB
     {
         /// <inheritdoc />
@@ -50,29 +50,16 @@ namespace KillerRobot_Api.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Playername")
+                    b.Property<string>("PlayerName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Score")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Playername");
-
                     b.ToTable("Scores");
-                });
-
-            modelBuilder.Entity("KillerRobot_Api.Models.Scores", b =>
-                {
-                    b.HasOne("KillerRobot_Api.Models.Player", "Player")
-                        .WithMany()
-                        .HasForeignKey("Playername")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Player");
                 });
 #pragma warning restore 612, 618
         }
