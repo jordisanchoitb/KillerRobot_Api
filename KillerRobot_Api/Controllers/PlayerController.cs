@@ -37,6 +37,22 @@ namespace KillerRobot_Api.Controllers
             }
             return _response;
         }
+        [HttpPost("ShowPlayerScores")]
+        public ResponseDTO ShowScores([FromBody] Player player)
+        {
+            try
+            {
+                if (GetLogin(player).IsSuccess)
+                {
+                    _response.Data = _context.Players.FirstOrDefault(x=>x.Name==player.Name).Scores;
+                }
+            }catch(Exception ex)
+            {
+                _response.IsSuccess=false;
+                _response.Message = ex.Message;
+            }
+            return _response;
+        }
         [HttpPost("RegisterPlayer")]
         public ResponseDTO RegisterPlayer([FromBody] Player player)
         {
