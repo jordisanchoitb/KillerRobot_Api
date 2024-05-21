@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using KillerRobot_Api.Data;
 
 namespace KillerRobot_Api
 {
@@ -7,6 +9,12 @@ namespace KillerRobot_Api
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            //DI de la cadena de connexió de la BBDD
+            //permet que el servei estigui disponible per a tota l'aplicació
+            builder.Services.AddDbContext<AppDbContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+            });
             // Add services to the container.
 
             builder.Services.AddControllers();
