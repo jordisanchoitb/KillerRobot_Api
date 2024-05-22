@@ -10,6 +10,5 @@ namespace KillerRobot_Api.Models
         public string Name { get; set; }
         [Required]
         public string Password { get; set; }
-        public IEnumerable<Scores> Scores { get; set; }
     }
 }

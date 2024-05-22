@@ -37,6 +37,27 @@ namespace KillerRobot_Api.Controllers
             }
             return _response;
         }
+        [HttpPost("ShowPlayerScores")]
+        public ResponseDTO ShowScores([FromBody] Player player)
+        {
+            try
+            {
+                if (GetLogin(player).IsSuccess)
+                {
+                    IEnumerable<Scores> scores = _context.Scores.ToList().Where(sc=>sc.PlayerName==player.Name);
+                    foreach(Scores score in scores)
+                    {
+                        score.Player = null;
+                    }
+                    _response.Data = scores;
+                }
+            }catch(Exception ex)
+            {
+                _response.IsSuccess=false;
+                _response.Message = ex.Message;
+            }
+            return _response;
+        }
         [HttpPost("RegisterPlayer")]
         public ResponseDTO RegisterPlayer([FromBody] Player player)
         {
@@ -52,12 +73,19 @@ namespace KillerRobot_Api.Controllers
             return _response;
         }
         [HttpPut("ChangePassword")]
-        public ResponseDTO UpdatePlayer([FromBody] Player player)
+        public ResponseDTO UpdatePlayer([FromBody] PlayerChangeRequest changeRequest)
         {
             try
             {
-                _context.Players.Update(player);
-                _context.SaveChanges();
+                
+                if (GetLogin(changeRequest.playerCheck).IsSuccess)
+                {
+                    Player trackedPlayer = _context.Players.FirstOrDefault(x=>x.Name==changeRequest.playerCheck.Name);
+                    trackedPlayer.Password = Hasher.SHA256Hashing(changeRequest.newPassword).ToUpper();
+                    _context.Players.Update(trackedPlayer);
+                    _context.SaveChanges();
+                }
+                
             }catch(Exception ex )
             {
                 _response.IsSuccess = false;
