@@ -68,12 +68,19 @@ namespace KillerRobot_Api.Controllers
             return _response;
         }
         [HttpPut("ChangePassword")]
-        public ResponseDTO UpdatePlayer([FromBody] Player player)
+        public ResponseDTO UpdatePlayer([FromBody] PlayerChangeRequest changeRequest)
         {
             try
             {
-                _context.Players.Update(player);
-                _context.SaveChanges();
+                
+                if (GetLogin(changeRequest.playerCheck).IsSuccess)
+                {
+                    Player trackedPlayer = _context.Players.FirstOrDefault(x=>x.Name==changeRequest.playerCheck.Name);
+                    trackedPlayer.Password = Hasher.SHA256Hashing(changeRequest.newPassword).ToUpper();
+                    _context.Players.Update(trackedPlayer);
+                    _context.SaveChanges();
+                }
+                
             }catch(Exception ex )
             {
                 _response.IsSuccess = false;
