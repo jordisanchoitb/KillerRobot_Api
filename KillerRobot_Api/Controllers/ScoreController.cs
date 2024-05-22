@@ -21,7 +21,7 @@ namespace KillerRobot_Api.Controllers
         {
             try
             {
-                _response.Data = _context.Scores.FirstOrDefault(x=>x.Id==id);
+                _response.Data = _context.Scores.ToList().FirstOrDefault(x=>x.Id==id);
 
             }catch(Exception ex)
             {
@@ -48,6 +48,7 @@ namespace KillerRobot_Api.Controllers
         {
             try
             {
+                score.Player = null;
                 _context.Scores.Add(score);
                 _context.SaveChanges();
             }catch(Exception ex ) 
@@ -62,6 +63,7 @@ namespace KillerRobot_Api.Controllers
         {
             try
             {
+                score.Player = null;
                 _context.Scores.Update(score);
                 _context.SaveChanges();
             }catch (Exception ex)
@@ -76,11 +78,28 @@ namespace KillerRobot_Api.Controllers
         {
             try
             {
+                score.Player = null;
                 _context.Scores.Remove(score);
                 _context.SaveChanges();
             }catch( Exception ex )
             {
                 _response.IsSuccess=false;
+                _response.Message = ex.Message;
+            }
+            return _response;
+        }
+        [HttpDelete("DeleteScore/{id}")]
+        public ResponseDTO DeleteScore(int id)
+        {
+            try
+            {
+                Scores score = _context.Scores.FirstOrDefault(x=>x.Id==id);
+                _context.Scores.Remove(score);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
                 _response.Message = ex.Message;
             }
             return _response;

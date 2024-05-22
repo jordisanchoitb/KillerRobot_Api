@@ -44,7 +44,12 @@ namespace KillerRobot_Api.Controllers
             {
                 if (GetLogin(player).IsSuccess)
                 {
-                    _response.Data = _context.Players.FirstOrDefault(x=>x.Name==player.Name).Scores;
+                    IEnumerable<Scores> scores = _context.Scores.ToList().Where(sc=>sc.PlayerName==player.Name);
+                    foreach(Scores score in scores)
+                    {
+                        score.Player = null;
+                    }
+                    _response.Data = scores;
                 }
             }catch(Exception ex)
             {
