@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace KillerRobot_Api.Controllers
 {
-    [EnableCors]
+    [EnableCors(Program.CORSPolicyName)]
     public class ScoreController : Controller
     {
         private readonly AppDbContext _context; // per realitzar la injecció de dependències de la base de dades
