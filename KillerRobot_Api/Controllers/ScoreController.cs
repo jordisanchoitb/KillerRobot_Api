@@ -1,6 +1,7 @@
 ﻿using KillerRobot_Api.Data;
 using KillerRobot_Api.Models;
 using KillerRobot_Api.Models.DTO;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KillerRobot_Api.Controllers
@@ -17,6 +18,7 @@ namespace KillerRobot_Api.Controllers
             _response = new ResponseDTO();
         }
         [HttpGet("GetScore/{id}")]
+        [EnableCors]
         public ResponseDTO GetScore(int id)
         {
             try
@@ -31,6 +33,7 @@ namespace KillerRobot_Api.Controllers
             return _response;
         }
         [HttpGet("GetScore")]
+        [EnableCors]
         public ResponseDTO GetScore()
         {
             try

@@ -2,6 +2,7 @@
 using KillerRobot_Api.Models;
 using KillerRobot_Api.Models.DTO;
 using KillerRobot_Api.Utils;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KillerRobot_Api.Controllers
@@ -18,6 +19,7 @@ namespace KillerRobot_Api.Controllers
             _response = new ResponseDTO();
         }
         [HttpPost("CheckLogin")]
+        [EnableCors]
         public ResponseDTO GetLogin([FromBody] Player player)
         {
             try
