@@ -15,6 +15,17 @@ namespace KillerRobot_Api
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy(name: "test",
+                                  policy =>
+                                  {
+                                      policy.AllowAnyHeader()
+                                            .AllowAnyMethod()
+                                            .AllowAnyOrigin();
+                                  });
+            });
             // Add services to the container.
 
             builder.Services.AddControllers();
@@ -32,7 +43,7 @@ namespace KillerRobot_Api
             }
 
             app.UseHttpsRedirection();
-
+            app.UseCors();
             app.UseAuthorization();
 
 
