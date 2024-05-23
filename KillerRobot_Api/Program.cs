@@ -5,8 +5,10 @@ namespace KillerRobot_Api
 {
     public class Program
     {
+        public const string CORSPolicyName = "CORSPolicy";
         public static void Main(string[] args)
         {
+            
             var builder = WebApplication.CreateBuilder(args);
 
             //DI de la cadena de connexió de la BBDD
@@ -14,6 +16,17 @@ namespace KillerRobot_Api
             builder.Services.AddDbContext<AppDbContext>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+            });
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy(name: CORSPolicyName,
+                                  policy =>
+                                  {
+                                      policy.AllowAnyHeader()
+                                            .AllowAnyMethod()
+                                            .AllowAnyOrigin();
+                                  });
             });
             // Add services to the container.
 
@@ -32,7 +45,7 @@ namespace KillerRobot_Api
             }
 
             app.UseHttpsRedirection();
-
+            app.UseCors(CORSPolicyName);
             app.UseAuthorization();
 
 

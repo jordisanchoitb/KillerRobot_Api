@@ -1,10 +1,12 @@
 ﻿using KillerRobot_Api.Data;
 using KillerRobot_Api.Models;
 using KillerRobot_Api.Models.DTO;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KillerRobot_Api.Controllers
 {
+    [EnableCors(Program.CORSPolicyName)]
     public class ScoreController : Controller
     {
         private readonly AppDbContext _context; // per realitzar la injecció de dependències de la base de dades
