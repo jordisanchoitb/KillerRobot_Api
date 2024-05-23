@@ -43,7 +43,7 @@ namespace KillerRobot_Api
             }
 
             app.UseHttpsRedirection();
-            app.UseCors();
+            app.UseCors("test");
             app.UseAuthorization();
 
 

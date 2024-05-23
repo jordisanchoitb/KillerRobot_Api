@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace KillerRobot_Api.Controllers
 {
+    [EnableCors]
     public class ScoreController : Controller
     {
         private readonly AppDbContext _context; // per realitzar la injecció de dependències de la base de dades
@@ -18,7 +19,6 @@ namespace KillerRobot_Api.Controllers
             _response = new ResponseDTO();
         }
         [HttpGet("GetScore/{id}")]
-        [EnableCors]
         public ResponseDTO GetScore(int id)
         {
             try
@@ -33,7 +33,6 @@ namespace KillerRobot_Api.Controllers
             return _response;
         }
         [HttpGet("GetScore")]
-        [EnableCors]
         public ResponseDTO GetScore()
         {
             try

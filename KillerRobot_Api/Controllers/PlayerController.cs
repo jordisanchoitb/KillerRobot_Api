@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace KillerRobot_Api.Controllers
 {
+    [EnableCors]
     public class PlayerController : Controller
     {
         private readonly AppDbContext _context; // per realitzar la injecció de dependències de la base de dades
@@ -19,7 +20,7 @@ namespace KillerRobot_Api.Controllers
             _response = new ResponseDTO();
         }
         [HttpPost("CheckLogin")]
-        [EnableCors]
+        
         public ResponseDTO GetLogin([FromBody] Player player)
         {
             try
