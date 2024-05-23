@@ -21,7 +21,7 @@ namespace KillerRobot_Api
                 options.AddPolicy(name: "test",
                                   policy =>
                                   {
-                                      policy.AllowAnyHeader()
+                                      policy.WithOrigins("https://someone.com")//.AllowAnyHeader()
                                             .AllowAnyMethod()
                                             .AllowAnyOrigin();
                                   });
