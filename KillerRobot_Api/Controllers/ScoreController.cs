@@ -50,7 +50,6 @@ namespace KillerRobot_Api.Controllers
         {
             try
             {
-                score.Player = null;
                 _context.Scores.Add(score);
                 _context.SaveChanges();
             }catch(Exception ex ) 
@@ -65,7 +64,6 @@ namespace KillerRobot_Api.Controllers
         {
             try
             {
-                score.Player = null;
                 _context.Scores.Update(score);
                 _context.SaveChanges();
             }catch (Exception ex)
@@ -80,7 +78,6 @@ namespace KillerRobot_Api.Controllers
         {
             try
             {
-                score.Player = null;
                 _context.Scores.Remove(score);
                 _context.SaveChanges();
             }catch( Exception ex )
