@@ -59,49 +59,5 @@ namespace KillerRobot_Api.Controllers
             }
             return _response;
         }
-        [HttpPut("ChangeScore")]
-        public ResponseDTO ChangeScore([FromBody] Scores score)
-        {
-            try
-            {
-                _context.Scores.Update(score);
-                _context.SaveChanges();
-            }catch (Exception ex)
-            {
-                _response.IsSuccess=false;
-                _response.Message = ex.Message;
-            }
-            return _response;
-        }
-        [HttpDelete("DeleteScore")]
-        public ResponseDTO DeleteScore([FromBody] Scores score)
-        {
-            try
-            {
-                _context.Scores.Remove(score);
-                _context.SaveChanges();
-            }catch( Exception ex )
-            {
-                _response.IsSuccess=false;
-                _response.Message = ex.Message;
-            }
-            return _response;
-        }
-        [HttpDelete("DeleteScore/{id}")]
-        public ResponseDTO DeleteScore(int id)
-        {
-            try
-            {
-                Scores score = _context.Scores.FirstOrDefault(x=>x.Id==id);
-                _context.Scores.Remove(score);
-                _context.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                _response.IsSuccess = false;
-                _response.Message = ex.Message;
-            }
-            return _response;
-        }
     }
 }
